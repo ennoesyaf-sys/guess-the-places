@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Famous Places in Indonesia: Interactive Quiz Slides</title>
+<style>
+:root{--bg:#f6f1e4;--card:#fff;--ink:#0e3a4a;--mute:#5c6f75;--acc:#e0614f;--ok:#2e7d4f;--okbg:#dcf0e3;--badbg:#fbe3de;--line:#e0d9c6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b2530;--card:#123846;--ink:#f1ecdd;--mute:#9fb8c0;--acc:#ff8a78;--ok:#7fd6a0;--okbg:#17402f;--badbg:#4a2a2f;--line:#245061}}
+:root[data-theme="dark"]{--bg:#0b2530;--card:#123846;--ink:#f1ecdd;--mute:#9fb8c0;--acc:#ff8a78;--ok:#7fd6a0;--okbg:#17402f;--badbg:#4a2a2f;--line:#245061}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Helvetica,Arial,sans-serif;display:flex;flex-direction:column}
+header{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--line)}
+header b{font-family:Georgia,serif}
+button{font:inherit;color:inherit;cursor:pointer}
+.nb{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 12px}
+.bar{height:6px;background:var(--line)}.bar i{display:block;height:100%;background:var(--acc);width:0;transition:width .3s}
+main{flex:1;overflow:auto;padding:20px 16px}
+.w{max-width:900px;margin:0 auto}
+h1{font-family:Georgia,serif;font-size:clamp(32px,6vw,56px);margin:.2em 0}
+h2{font-family:Georgia,serif;font-size:clamp(22px,3.5vw,30px);margin:0 0 12px}
+.tag{color:var(--acc);font-weight:700;letter-spacing:2px;font-size:13px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;line-height:1.6;font-size:18px;margin-bottom:14px}
+.opt{display:block;width:100%;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:8px;font-size:17px}
+.opt:hover:not(:disabled){border-color:var(--acc)}
+.opt.ok{background:var(--okbg);border-color:var(--ok)}.opt.bad{background:var(--badbg);border-color:var(--acc)}
+.fb{display:none;background:var(--card);border-left:6px solid var(--acc);border-radius:8px;padding:12px 14px;line-height:1.5;margin:12px 0}
+.fb.show{display:block}.small{color:var(--mute);font-size:15px}
+.go{background:var(--acc);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-weight:700;font-size:17px}
+.hint{background:none;border:0;color:var(--acc);font-weight:700;padding:4px 0}
+</style></head><body>
+<header><b>Indonesia: Guess the Place</b><div><span id="sc" class="small"></span> <button class="nb" id="th">Dark/Light</button></div></header>
+<div class="bar"><i id="pr"></i></div>
+<main><div class="w" id="app"></div></main>
+<script>
+var Q=[
+["This incredibly ancient Buddhist temple in Central Java was built more than a thousand years ago. Its huge stone terraces are decorated with fascinating carvings, and at the top, many bell-shaped stupas can be seen. Visitors who arrive before sunrise feel calm and amazed as the absolutely magnificent view slowly appears above the misty hills.",["Prambanan Temple","Borobudur Temple","Tana Toraja","Kota Tua"],1,"Borobudur, Central Java. Features: passive voice (was built, are decorated, can be seen), “incredibly ancient”, the non-grading adverb “absolutely”, and visitor feelings.","It is Buddhist, and its stupas are famous."],
+["This is one of the largest Hindu temple complexes in Indonesia, near the city of Yogyakarta. The three main temples are dedicated to great Hindu divinities, and their tall, awe-inspiring spires can be seen from far away. It is a really impressive place, and at night the stone towers are lit up beautifully. Traditional dance performances are often held nearby.",["Prambanan Temple","Borobudur Temple","Mount Bromo","Ubud"],0,"Prambanan, near Yogyakarta. Features: “really impressive”, “awe-inspiring spires” (page 29), and passive voice (are dedicated, are lit up, are held).","It is Hindu, and the pronunciation practice mentioned its spires."],
+["This is a very peaceful town in the middle of Bali. It is surrounded by picturesque rice terraces where farmers can be seen working in the morning. The streets are quite lively, with small art markets, galleries, and a forest full of monkeys. Visitors feel fresh and relaxed here, and the souvenirs are fairly inexpensive.",["Bunaken","Raja Ampat","Ubud","Kota Tua"],2,"Ubud, Bali. Features: vocabulary (picturesque, lively, inexpensive), intensifiers (very, quite, fairly), and feelings, like the rice-field postcard on page 34.","Remember the postcard about green rice fields."],
+["This rather remote group of islands in East Nusa Tenggara is protected as a national park. It is famous for the world's largest lizards, which can grow up to three meters long. Besides the dragons, visitors can enjoy a beach with pink sand and very clear water. Most tourists get there by boat from a small port town.",["Komodo National Park","Bunaken","Lake Toba","Tana Toraja"],0,"Komodo National Park. Features: “rather remote” (a mild intensifier), passive voice (is protected), parts (islands, beach), and characteristics (the dragons).","Think of “the world's largest lizards”."],
+["This place consists of four groups of islands in the eastern part of Indonesia. The sea is calm and extremely clear, and the view from the hilltops is totally breathtaking. It is considered one of the best diving spots in the world because of its rich coral and colorful underwater flora and fauna. It is quite far from big cities, so it feels very quiet and unspoiled.",["Komodo National Park","Mount Bromo","Lake Toba","Raja Ampat"],3,"Raja Ampat, Southwest Papua. It was in the Starting Up task on page 28. Features: “extremely clear”, “totally breathtaking”, and passive voice (is considered).","It was in the Starting Up matching task on page 28."],
+["One of the world's greatest natural wonders is a huge crater lake in North Sumatra, which resembles an ocean more than anything else. An island is found in the middle, and the cool, clear water gives visitors a relaxed feeling. Tourists can go hiking, swimming, or sailing, and they are welcomed by friendly Batak people. To get there, you can fly to Medan, take a bus, and then cross by ferry.",["Lake Toba","Mount Bromo","Ubud","Bunaken"],0,"Lake Toba. It follows the lesson text: identification, parts (the island), qualities (cool, clear), characteristics (Batak people), and how to get there (Medan, bus, ferry).","You read this text today."],
+["This is a really spectacular active volcano in East Java. It is surrounded by a wide sea of sand, and every morning it is visited by hundreds of people who want to see the fascinating sunrise. Visitors usually travel in the dark by jeep, then climb the steps to the edge of the crater. The air is very cold, but the misty view makes everyone feel excited.",["Borobudur Temple","Prambanan Temple","Mount Bromo","Raja Ampat"],2,"Mount Bromo, East Java. Features: “really spectacular”, “fascinating”, passive voice (is surrounded, is visited), and visitor feelings.","Visitors go before dawn by jeep."],
+["This quite famous marine park is located near the city of Manado in North Sulawesi. It is made up of several small islands, and underneath the calm water, there is a steep coral wall full of amazingly colorful fish. Both divers and beginners can enjoy the sea here, and boats can be rented at a reasonable price. Visitors say the experience is totally unforgettable.",["Raja Ampat","Bunaken","Komodo National Park","Lake Toba"],1,"Bunaken, North Sulawesi. Features: “quite famous”, “amazingly colorful”, “totally unforgettable”, and passive voice (is located, can be rented).","It is in Sulawesi, near Manado."],
+["This is a highly unique highland region in South Sulawesi. The traditional houses have curved roofs and are decorated with detailed carvings. Ancient burial sites are cut into the rocky hills, and elaborate funeral ceremonies are still held today. The green mountain scenery is picturesque, and the local people are warm and welcoming to visitors.",["Ubud","Lake Toba","Kota Tua","Tana Toraja"],3,"Tana Toraja. “Unique” is non-gradable, so “highly” fits better than “very”. Also: ancient, picturesque, and passive voice (are decorated, are cut, are held).","Look for curved, boat-shaped roofs."],
+["This fairly touristy area in the capital city has many charming colonial buildings that were built hundreds of years ago. The main square is bustling with street artists, cafés, and visitors who rent colorful bicycles. It looks very different from the contemporary, cosmopolitan skyscrapers in the rest of the city.",["Kota Tua","Ubud","Prambanan Temple","Mount Bromo"],0,"Kota Tua (Old Town), Jakarta. Vocabulary: touristy, charming, bustling, contemporary, cosmopolitan. Passive voice: were built.","It is in the capital city."]];
+var A=[],i=-1,app=document.getElementById("app");
+function score(){return A.filter(function(a,k){return a===Q[k][2]}).length}
+function render(){
+ document.getElementById("pr").style.width=((i+1)/(Q.length+1)*100)+"%";
+ document.getElementById("sc").textContent=i>=0&&i<Q.length?"Score "+score()+"/"+Q.length:"";
+ if(i<0){app.innerHTML='<p class="tag">STEP UP 2 · UNIT 2 · WONDERFUL INDONESIA</p><h1>Guess the Place</h1><p>Read each descriptive text and choose the place it describes. Look for the adjectives of place, intensifiers, and passive voice.</p><button class="go" id="st">Start the quiz</button>';document.getElementById("st").onclick=function(){go(0)};return}
+ if(i>=Q.length){var s=score();app.innerHTML='<p class="tag">RESULTS</p><h1>'+s+' / '+Q.length+'</h1><p>'+(s>=9?"Excellent! You know Indonesia very well.":s>=6?"Well done! Review the questions you missed.":"Good try! Read the explanations and play again.")+'</p><button class="go" id="rs">Play again</button>';document.getElementById("rs").onclick=function(){A=[];go(-1)};return}
+ var q=Q[i],h='<p class="tag">QUESTION '+(i+1)+' OF '+Q.length+'</p><h2>Which place is it?</h2><div class="box">'+q[0]+'</div>';
+ q[1].forEach(function(o,k){h+='<button class="opt" data-k="'+k+'">'+"ABCD"[k]+". "+o+'</button>'});
+ h+='<button class="hint" id="hb">Show hint</button><div class="small" id="ht" style="display:none">'+q[4]+'</div><div class="fb" id="fb"></div><button class="go" id="nx" style="display:none">'+(i==Q.length-1?"See results":"Next ▶")+'</button>';
+ app.innerHTML=h;
+ document.getElementById("hb").onclick=function(){document.getElementById("ht").style.display="block";this.style.display="none"};
+ document.getElementById("nx").onclick=function(){go(i+1)};
+ var os=app.querySelectorAll(".opt");
+ os.forEach(function(b){b.onclick=function(){if(A[i]!==undefined)return;var k=+b.dataset.k;A[i]=k;lock(k)}});
+ if(A[i]!==undefined)lock(A[i]);
+}
+function lock(k){var q=Q[i],os=app.querySelectorAll(".opt");
+ os.forEach(function(b,n){b.disabled=true;if(n==q[2])b.classList.add("ok");else if(n==k)b.classList.add("bad")});
+ var f=document.getElementById("fb");f.innerHTML="<b>"+(k==q[2]?"Correct!":"Not quite. The answer is "+q[1][q[2]]+".")+"</b><br>"+q[3];f.classList.add("show");
+ document.getElementById("nx").style.display="inline-block";
+ document.getElementById("sc").textContent="Score "+score()+"/"+Q.length}
+function go(n){i=Math.max(-1,Math.min(Q.length,n));render();document.querySelector("main").scrollTop=0}
+document.addEventListener("keydown",function(e){if(e.key=="ArrowRight"&&(i<0||A[i]!==undefined))go(i+1);if(e.key=="ArrowLeft")go(i-1)});
+document.getElementById("th").onclick=function(){var r=document.documentElement,d=r.getAttribute("data-theme")==="dark"||(!r.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme:dark)").matches);r.setAttribute("data-theme",d?"light":"dark")};
+render();
+</script></body></html>
